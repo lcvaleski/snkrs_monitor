@@ -8,8 +8,9 @@ import time
 import os
 import datetime
 
+CHROMDRIVER = os.environ.get('CHROMEDRIVER')
 url = 'https://www.nike.com/launch/?s=in-stock'
-driver = webdriver.Chrome('/Users/loganvaleski/Desktop/Python/snkrs_monitor/chromedriver')
+driver = webdriver.Chrome(CHROMDRIVER)
 driver.get(url)
 
 # toggle grid view
@@ -31,12 +32,13 @@ while driver.find_element_by_xpath("//div[@class='figcaption-content']//h3[conta
 os.system("clear")
 print(cur_time,":", "SNKR has dropped")
 
+PHONENO = os.environ.get('PHONENO')
 NEXMO_KEY = os.environ.get('NEXMO_KEY')
 NEXMO_SECRET = os.environ.get('NEXMO_SECRET')
 
 client = nexmo.Client(key=NEXMO_KEY, secret=NEXMO_SECRET)
 
-response = client.send_message({'from' : '18444398499', 'to' : '17202561768', 'text' : 'Check SNKRS.'})
+response = client.send_message({'from' : '18444398499', 'to' : PHONENO, 'text' : 'Check SNKRS.'})
 
 response = response['messages'][0]
 
